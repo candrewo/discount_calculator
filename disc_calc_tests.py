@@ -16,7 +16,8 @@ class DiscountCalculatorTests(unittest.TestCase):
 		self.assertEqual (15, result)
 	def invalid_discount_types_test(self):
 		discount_calculator = DiscountCalculator()
-		self.assertRaises (ValueError, discount_calculator.calculate, 150, 5, 'string')
+		self.assertRaises (ValueError, discount_calculator.calculate,
+		 150, 5, 'string')
 	def floating_point_percentage_discount_test(self):
 	    discount_calculator = DiscountCalculator()
 	    result = discount_calculator.calculate(100.0,10.0,'percent')
@@ -25,4 +26,11 @@ class DiscountCalculatorTests(unittest.TestCase):
 		discount_calculator = DiscountCalculator()
 		result = discount_calculator.calculate(250.0,5.0,'dollar')
 		self.assertEqual(5.0, result)
-
+	def percent_discount_more_than_100_test(self):
+		discount_calculator = DiscountCalculator()
+		self.assertRaises (ValueError, discount_calculator.calculate, 
+			150, 110, 'percent')
+	def dollar_amount_greater_than_total_test(self):
+		discount_calculator = DiscountCalculator()
+		self.assertRaises (ValueError, discount_calculator.calculate,
+			150, 160, 'dollar')
